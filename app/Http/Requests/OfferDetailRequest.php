@@ -24,9 +24,6 @@ class OfferDetailRequest extends FormRequest
     public function rules()
     {
         return [
-            'day' => 'required|date',
-            'description' => 'required',
-            'image' => 'required|file',
             'price' => 'required|integer',
         ];
     }
