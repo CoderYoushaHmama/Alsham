@@ -45,7 +45,12 @@ class AirplaneController extends Controller
     {
         $airplanes = Airplane::paginate(15);
 
-        return success($airplanes, null);
+        $data = [
+            'data' => $airplanes->items(),
+            'total' => $airplanes->total(),
+        ];
+
+        return success($data, null);
     }
 
     //Get Airplane Information Function

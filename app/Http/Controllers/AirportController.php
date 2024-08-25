@@ -43,9 +43,14 @@ class AirportController extends Controller
     //Get Airports Function
     public function getAirports()
     {
-        $airports = Airport::pagiante(15);
+        $airports = Airport::paginate(15);
 
-        return success($airports, null);
+        $data = [
+            'data' => $airports->items(),
+            'total' => $airports->total(),
+        ];
+
+        return success($data, null);
     }
 
     //Get Airport Information Function
