@@ -43,8 +43,9 @@ Route::post('/login', [AuthenticationController::class, 'login']);
 Route::middleware('check-auth')->prefix('/')->group(function () {
     Route::get('/', [AuthenticationController::class, 'profile']);
     Route::post('/', [AuthenticationController::class, 'updateProfile']);
+    Route::post('/profile', [EmployeeController::class, 'updateProfile']);
     Route::post('/logout', [AuthenticationController::class, 'logout']);
-
+    
     Route::prefix('passports')->group(function () {
         Route::post('/', [PassportController::class, 'addPassport']);
         Route::post('/{passport}', [PassportController::class, 'updatePassport']);
@@ -125,11 +126,11 @@ Route::middleware('check-auth')->prefix('/')->group(function () {
     });
 
     Route::prefix('employees')->group(function () {
+        Route::post('/update-email/{employee}/{email}', [EmployeeController::class, 'updateEmail']);
         Route::middleware('manage-employee')->group(function () {
             Route::post('/', [EmployeeController::class, 'addEmployee']);
             Route::post('/{employee}', [EmployeeController::class, 'updateEmployee']);
             Route::delete('/{employee}', [EmployeeController::class, 'deleteEmployee']);
-            Route::post('/update-email/{employee}/{email}', [EmployeeController::class, 'updateEmail']);
             Route::post('/activate/{employee}', [EmployeeController::class, 'activateEmployee']);
         });
         Route::middleware('read-employee')->group(function () {
