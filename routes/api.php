@@ -40,12 +40,17 @@ Route::post('password-verification/{email}', [AuthenticationController::class, '
 Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'])->middleware('reset-password');
 Route::post('/login', [AuthenticationController::class, 'login']);
 
+Route::get('/flight-search', [ReservationController::class, 'search']);
+Route::get('/airports', [AirportController::class, 'getAirports']);
+
+Route::get('/passenger_companions_details', [ReservationController::class, 'getPassengerCompanionsDetails']);
+
 Route::middleware('check-auth')->prefix('/')->group(function () {
     Route::get('/', [AuthenticationController::class, 'profile']);
     Route::post('/', [AuthenticationController::class, 'updateProfile']);
     Route::post('/profile', [EmployeeController::class, 'updateProfile']);
     Route::post('/logout', [AuthenticationController::class, 'logout']);
-    
+
     Route::prefix('passports')->group(function () {
         Route::post('/', [PassportController::class, 'addPassport']);
         Route::post('/{passport}', [PassportController::class, 'updatePassport']);
